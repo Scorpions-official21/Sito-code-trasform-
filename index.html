@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scorpion Studio | BDScript ➔ Java JDA Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Scorpion Code Studio | BDScript to Java JDA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0f111a;
-            --bg-card: #181a26;
-            --bg-input: #090a10;
-            --accent-primary: #7289da;
-            --accent-hover: #5b6eae;
-            --text-main: #e1e7ed;
-            --text-muted: #828a9a;
-            --border-color: #272b3c;
-            --success: #43b581;
-            --danger: #f04747;
+            --bg-main: #0b0e14;
+            --bg-card: #151921;
+            --bg-input: #0d1117;
+            --accent: #5865f2;
+            --accent-hover: #4752c4;
+            --text-main: #f2f3f5;
+            --text-muted: #949ba4;
+            --border: #232733;
+            --success: #57f287;
+            --danger: #ed4245;
         }
 
         * {
@@ -32,35 +32,34 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            padding: 24px;
+            padding: 20px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #fff;
             letter-spacing: -0.5px;
         }
 
         header h1 span {
-            color: var(--accent-primary);
+            color: var(--accent);
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 6px;
+            font-size: 0.9rem;
+            margin-top: 4px;
         }
 
         .workspace {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 16px;
             flex: 1;
         }
 
@@ -72,52 +71,56 @@
 
         .panel {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
 
         .panel-header {
-            background: rgba(0,0,0,0.2);
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.25);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .panel-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: var(--text-muted);
         }
 
-        .file-btn-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .file-btn {
-            background: var(--border-color);
+        .btn-action {
+            background: var(--border);
             color: var(--text-main);
+            border: none;
             padding: 6px 12px;
             font-size: 0.8rem;
             border-radius: 6px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .file-btn:hover {
-            background: var(--accent-primary);
+        .btn-action:hover {
+            background: var(--accent);
             color: #fff;
         }
 
-        .file-btn-wrapper input[type="file"] {
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
             position: absolute;
             left: 0;
             top: 0;
@@ -127,15 +130,22 @@
             cursor: pointer;
         }
 
+        .editor-container {
+            display: flex;
+            flex: 1;
+            background: var(--bg-input);
+            position: relative;
+        }
+
         textarea {
             width: 100%;
             height: 100%;
             min-height: 480px;
-            background: var(--bg-input);
+            background: transparent;
             border: none;
             color: #89ddff;
             font-family: 'Fira Code', monospace;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             padding: 16px;
             line-height: 1.6;
             resize: none;
@@ -143,101 +153,92 @@
         }
 
         textarea::placeholder {
-            color: #43495d;
+            color: #3b4252;
         }
 
-        .actions-bar {
+        .controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
-            gap: 16px;
+            padding: 16px 0;
+            gap: 12px;
         }
 
         .btn-convert {
-            background: var(--accent-primary);
+            background: var(--accent);
             color: #fff;
             border: none;
-            padding: 14px 36px;
-            font-size: 1rem;
+            padding: 12px 32px;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(114, 137, 218, 0.4);
+            box-shadow: 0 4px 14px rgba(88, 101, 242, 0.35);
             transition: all 0.2s ease;
         }
 
         .btn-convert:hover {
             background: var(--accent-hover);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
-        .btn-copy {
-            background: #2f3136;
-            color: #fff;
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            border-radius: 6px;
+        .btn-clear {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .btn-copy:hover {
-            background: #393c43;
+        .btn-clear:hover {
+            background: rgba(237, 66, 69, 0.1);
+            color: var(--danger);
+            border-color: var(--danger);
         }
-
-        .status-badge {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .status-ready { background: rgba(67, 181, 129, 0.2); color: var(--success); }
     </style>
 </head>
 <body>
 
     <header>
         <h1><span>Scorpion</span> Code Studio</h1>
-        <p>Convertitore Avanzato da BDScript (Bot Designer for Discord) a Java JDA v5</p>
+        <p>Convertitore Universale BDScript ➔ Java JDA v5</p>
     </header>
 
     <div class="workspace">
         <div class="panel">
             <div class="panel-header">
                 <span class="panel-title">Sorgente BDScript</span>
-                <div class="file-btn-wrapper">
-                    <span class="file-btn">Carica .txt / .bds</span>
+                <div class="file-input-wrapper">
+                    <button class="btn-action">📁 Carica File</button>
                     <input type="file" id="fileInput" accept=".txt,.bds">
                 </div>
             </div>
-            <textarea id="bdscriptInput" placeholder="// Incolla qui il tuo codice BDScript...
-$nomention
-$deletecommand$description[
-**AZIONI RP**
-<@$authorID>$message
-]
-$color[$random[0;9999]]"></textarea>
+            <div class="editor-container">
+                <textarea id="bdscriptInput" placeholder="// Incolla qui il tuo codice BDScript di Bot Designer for Discord..."></textarea>
+            </div>
         </div>
 
         <div class="panel">
             <div class="panel-header">
-                <span class="panel-title">Output Java JDA v5</span>
-                <button class="btn-copy" onclick="copyJavaCode()">Copia Codice</button>
+                <span class="panel-title">Codice Java (JDA v5)</span>
+                <button class="btn-action" onclick="copyJava()">📋 Copia Codice</button>
             </div>
-            <textarea id="javaOutput" readonly placeholder="// Il codice Java compilato apparirà qui..."></textarea>
+            <div class="editor-container">
+                <textarea id="javaOutput" readonly placeholder="// Il codice Java compilato apparirà qui..."></textarea>
+            </div>
         </div>
     </div>
 
-    <div class="actions-bar">
-        <button class="btn-convert" onclick="processConversion()">Converti Ora in Java</button>
+    <div class="controls">
+        <button class="btn-clear" onclick="clearFields()">Pulisci</button>
+        <button class="btn-convert" onclick="convertBDScript()">Converti Ora in Java</button>
     </div>
 
     <script>
-        // Caricamento File
+        // Lettura file
         document.getElementById('fileInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -248,142 +249,163 @@ $color[$random[0;9999]]"></textarea>
             reader.readAsText(file);
         });
 
-        function copyJavaCode() {
+        function clearFields() {
+            document.getElementById('bdscriptInput').value = '';
+            document.getElementById('javaOutput').value = '';
+        }
+
+        function copyJava() {
             const output = document.getElementById('javaOutput');
-            if (!output.value) return;
+            if (!output.value.trim()) return;
             navigator.clipboard.writeText(output.value);
             alert("Codice Java copiato negli appunti!");
         }
 
-        // Engine di Parsing BDScript -> Java JDA
-        function processConversion() {
+        // Engine di Conversione Sicuro
+        function convertBDScript() {
             const input = document.getElementById('bdscriptInput').value;
-            if (!input.trim()) return;
-
-            let hasDelete = input.includes('$deletecommand');
-            let hasArgsCheck = input.match(/\$argsCheck\[(\d+)[>;]?\s*;?\s*(.*?)\]/);
-            let hasRandomColor = input.includes('$random[');
-            let hasTime = input.includes('$time[');
-            let hasLogEmbed = input.includes('$sendEmbedMessage');
-            let hasSuppressErrors = input.includes('$suppressErrors') \vert{}\vert{} input.includes('$embedSuppressErrors');
-
-            let java = `import net.dv8tion.jda.api.EmbedBuilder;\n`;
-            java += `import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;\n`;
-            java += `import net.dv8tion.jda.api.events.message.MessageReceivedEvent;\n`;
-            java += `import net.dv8tion.jda.api.hooks.ListenerAdapter;\n`;
-            java += `import java.awt.Color;\n`;
-            if (hasTime) {
-                java += `import java.time.LocalDateTime;\n`;
-                java += `import java.time.ZoneId;\n`;
-                java += `import java.time.format.DateTimeFormatter;\n`;
-            }
-            if (hasRandomColor) {
-                java += `import java.util.Random;\n`;
+            if (!input.trim()) {
+                alert("Inserisci del codice BDScript prima di convertire!");
+                return;
             }
 
-            java += `\npublic class CommandListener extends ListenerAdapter {\n\n`;
-            if (hasRandomColor) {
-                java += `    private final Random random = new Random();\n\n`;
+            try {
+                let hasDelete = input.includes('$deletecommand');
+                let hasTime = input.includes('$time[');
+                let hasRandom = input.includes('$random[');
+                let hasSuppress = input.includes('$suppressErrors') \vert{}\vert{} input.includes('$embedSuppressErrors');
+                let hasLog = input.includes('$sendEmbedMessage');
+
+                // Estrazione Argomenti ($argsCheck)
+                let argsCheckMatch = input.match(/\$argsCheck\[(\d+)[>;]?\s*;?\s*([\s\S]*?)\]/);
+
+                let code = `import net.dv8tion.jda.api.EmbedBuilder;\n`;
+                if (hasLog) code += `import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;\n`;
+                code += `import net.dv8tion.jda.api.events.message.MessageReceivedEvent;\n`;
+                code += `import net.dv8tion.jda.api.hooks.ListenerAdapter;\n`;
+                code += `import java.awt.Color;\n`;
+                if (hasTime) {
+                    code += `import java.time.LocalDateTime;\n`;
+                    code += `import java.time.ZoneId;\n`;
+                    code += `import java.time.format.DateTimeFormatter;\n`;
+                }
+                if (hasRandom) {
+                    code += `import java.util.Random;\n`;
+                }
+
+                code += `\npublic class CommandListener extends ListenerAdapter {\n\n`;
+                if (hasRandom) {
+                    code += `    private final Random random = new Random();\n\n`;
+                }
+
+                code += `    @Override\n`;
+                code += `    public void onMessageReceived(MessageReceivedEvent event) {\n`;
+                code += `        if (event.getAuthor().isBot() || !event.isFromGuild()) return;\n\n`;
+                code += `        String rawMessage = event.getMessage().getContentRaw();\n`;
+                code += `        String[] args = rawMessage.split("\\\\s+");\n\n`;
+
+                if (hasSuppress) {
+                    code += `        try {\n`;
+                }
+
+                // Controllo Argomenti
+                if (argsCheckMatch) {
+                    let minArgs = parseInt(argsCheckMatch[1]);
+                    let errMsg = argsCheckMatch[2] ? argsCheckMatch[2].replace(/"/g, '\\"').trim() : "Sintassi errata!";
+                    code += `            if (args.length - 1 < ${minArgs}) {\n`;
+                    code += `                event.getChannel().sendMessage("${errMsg}").queue();\n`;
+                    code += `                return;\n`;
+                    code += `            }\n\n`;
+                }
+
+                if (hasDelete) {
+                    code += `            event.getMessage().delete().queue();\n`;
+                }
+
+                code += `            String actionMessage = rawMessage.indexOf(' ') != -1 ? rawMessage.substring(rawMessage.indexOf(' ') + 1) : "";\n`;
+
+                if (hasTime) {
+                    code += `            LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Rome"));\n`;
+                    code += `            String formattedDate = now.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));\n`;
+                }
+
+                // Generazione Embed Principale
+                code += `\n            EmbedBuilder mainEmbed = new EmbedBuilder();\n`;
+
+                let descMatch = input.match(/\$description\[([\s\S]*?)\]/);
+                if (descMatch) {
+                    code += `            mainEmbed.setDescription(${parseVars(descMatch[1])});\n`;
+                }
+
+                let titleMatch = input.match(/\$title\[([\s\S]*?)\]/);
+                if (titleMatch) {
+                    code += `            mainEmbed.setTitle(${parseVars(titleMatch[1])});\n`;
+                }
+
+                if (hasRandom) {
+                    code += `            mainEmbed.setColor(new Color(random.nextInt(0xFFFFFF)));\n`;
+                } else if (input.includes('$color[')) {
+                    let colMatch = input.match(/\$color\[#(.*?)\]/);
+                    if (colMatch) {
+                        code += `            mainEmbed.setColor(Color.decode("#${colMatch[1]}"));\n`;
+                    } else {
+                        code += `            mainEmbed.setColor(Color.CYAN);\n`;
+                    }
+                }
+
+                let footerMatch = input.match(/\$footer\[([\s\S]*?)\]/);
+                if (footerMatch) {
+                    code += `            mainEmbed.setFooter(${parseVars(footerMatch[1])});\n`;
+                }
+
+                code += `            event.getChannel().sendMessageEmbeds(mainEmbed.build()).queue();\n`;
+
+                // Gestione Log Embed
+                if (hasLog) {
+                    code += `\n            // Invio Embed nei Log\n`;
+                    code += `            String logChannelId = "ID_CANALE_LOG"; // Sostituisci con l'ID del canale log\n`;
+                    code += `            TextChannel logChannel = event.getGuild().getTextChannelById(logChannelId);\n`;
+                    code += `            if (logChannel != null) {\n`;
+                    code += `                EmbedBuilder logEmbed = new EmbedBuilder();\n`;
+                    code += `                logEmbed.setTitle("LOGS BOT");\n`;
+                    code += `                logEmbed.setColor(Color.decode("#FF00CA"));\n`;
+                    code += `                logEmbed.setDescription("Comando eseguito da: " + event.getAuthor().getAsMention() + "\\nMessaggio: " + actionMessage);\n`;
+                    if (hasTime) {
+                        code += `                logEmbed.setFooter("Powered By " + event.getGuild().getName() + " | " + formattedDate);\n`;
+                    }
+                    code += `                logChannel.sendMessageEmbeds(logEmbed.build()).queue();\n`;
+                    code += `            }\n`;
+                }
+
+                if (hasSuppress) {
+                    code += `\n        } catch (Exception e) {\n`;
+                    code += `            EmbedBuilder errEmbed = new EmbedBuilder();\n`;
+                    code += `            errEmbed.setTitle("ERRORE COMANDO");\n`;
+                    code += `            errEmbed.setDescription("Si è verificato un errore durante l'esecuzione del comando.");\n`;
+                    code += `            errEmbed.setColor(Color.RED);\n`;
+                    code += `            event.getChannel().sendMessageEmbeds(errEmbed.build()).queue();\n`;
+                    code += `        }\n`;
+                }
+
+                code += `    }\n`;
+                code += `}\n`;
+
+                document.getElementById('javaOutput').value = code;
+
+            } catch (err) {
+                alert("Errore durante la conversione: " + err.message);
             }
-
-            java += `    @Override\n`;
-            java += `    public void onMessageReceived(MessageReceivedEvent event) {\n`;
-            java += `        if (event.getAuthor().isBot() || !event.isFromGuild()) return;\n\n`;
-            java += `        String rawMessage = event.getMessage().getContentRaw();\n`;
-            java += `        String[] args = rawMessage.split("\\\\s+");\n\n`;
-
-            if (hasSuppressErrors) {
-                java += `        try {\n`;
-            }
-
-            // Argomenti
-            if (hasArgsCheck) {
-                let minArgs = parseInt(hasArgsCheck[1]);
-                let errorMsg = hasArgsCheck[2] || "Sintassi comando non valida!";
-                java += `            if (args.length - 1 < ${minArgs}) {\n`;
-                java += `                event.getChannel().sendMessage("${clean(errorMsg)}").queue();\n`;
-                java += `                return;\n`;
-                java += `            }\n\n`;
-            }
-
-            // Eliminazione messaggio
-            if (hasDelete) {
-                java += `            event.getMessage().delete().queue();\n`;
-            }
-
-            java += `            String actionMessage = rawMessage.indexOf(' ') != -1 ? rawMessage.substring(rawMessage.indexOf(' ') + 1) : "";\n`;
-            
-            if (hasTime) {
-                java += `            LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Rome"));\n`;
-                java += `            String formattedDate = now.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));\n`;
-            }
-
-            // Parsing Embed Principale
-            java += `\n            EmbedBuilder mainEmbed = new EmbedBuilder();\n`;
-            
-            let descMatch = input.match(/\$description\[([\s\S]*?)\]/);
-            if (descMatch) {
-                let parsedDesc = parseBDVars(descMatch[1]);
-                java += `            mainEmbed.setDescription(${parsedDesc});\n`;
-            }
-
-            let titleMatch = input.match(/\$title\[(.*?)\]/);
-            if (titleMatch) {
-                java += `            mainEmbed.setTitle(${parseBDVars(titleMatch[1])});\n`;
-            }
-
-            if (hasRandomColor) {
-                java += `            mainEmbed.setColor(new Color(random.nextInt(0xFFFFFF)));\n`;
-            } else {
-                java += `            mainEmbed.setColor(Color.CYAN);\n`;
-            }
-
-            let footerMatch = input.match(/\$footer\[(.*?)\]/);
-            if (footerMatch) {
-                java += `            mainEmbed.setFooter(${parseBDVars(footerMatch[1])});\n`;
-            }
-
-            java += `            event.getChannel().sendMessageEmbeds(mainEmbed.build()).queue();\n`;
-
-            // Parsing Embed Log
-            if (hasLogEmbed) {
-                java += `\n            // Invio Embed di Log\n`;
-                java += `            String logChannelId = "ID_CANALE_LOG"; // Inserisci l'ID del canale log\n`;
-                java += `            TextChannel logChannel = event.getGuild().getTextChannelById(logChannelId);\n`;
-                java += `            if (logChannel != null) {\n`;
-                java += `                EmbedBuilder logEmbed = new EmbedBuilder();\n`;
-                java += `                logEmbed.setColor(Color.decode("#FF00CA"));\n`;
-                java += `                logEmbed.setDescription("Log operazione eseguita da " + event.getAuthor().getAsMention());\n`;
-                java += `                logChannel.sendMessageEmbeds(logEmbed.build()).queue();\n`;
-                java += `            }\n`;
-            }
-
-            if (hasSuppressErrors) {
-                java += `\n        } catch (Exception e) {\n`;
-                java += `            EmbedBuilder err = new EmbedBuilder();\n`;
-                java += `            err.setTitle("❌ Errore durante l'esecuzione");\n`;
-                java += `            err.setColor(Color.RED);\n`;
-                java += `            event.getChannel().sendMessageEmbeds(err.build()).queue();\n`;
-                java += `        }\n`;
-            }
-
-            java += `    }\n`;
-            java += `}\n`;
-
-            document.getElementById('javaOutput').value = java;
         }
 
-        function parseBDVars(str) {
+        // Parsing sicuro delle macro BDScript -> Stringhe Java
+        function parseVars(str) {
             let res = JSON.stringify(str);
             res = res.replace(/\\\$authorID/g, '" + event.getAuthor().getAsMention() + "');
             res = res.replace(/\\\$message/g, '" + actionMessage + "');
             res = res.replace(/\\\$serverName\\[.*?\\\]/g, '" + event.getGuild().getName() + "');
+            res = res.replace(/\\\$guildID/g, '" + event.getGuild().getId() + "');
             res = res.replace(/\\\$hour:\\\$minute \\\$date/g, '" + formattedDate + "');
             return res;
-        }
-
-        function clean(str) {
-            return str.replace(/"/g, '\\"');
         }
     </script>
 </body>
